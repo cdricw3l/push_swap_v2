@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:41:07 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/13 04:20:20 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/13 05:01:21 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ typedef struct s_ps
 
 }	t_ps;
 
-int	ft_isdigit(int c);
-int	ft_atoi(const char *str);
+int		ft_isdigit(int c);
+int		ft_atoi(const char *str);
+void	*ft_memmove(void *dest, const void *src, size_t n);
 
+void	swap(t_ps *ps, int stack, int display);
+void	rotate(t_ps *ps, int stack, int display);
 #endif
