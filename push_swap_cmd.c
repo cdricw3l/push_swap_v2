@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 04:36:23 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/13 13:22:05 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/13 16:06:53 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int *get_stack(t_ps *ps, int stack, size_t *size)
 	}
 	else if (stack == STACK_B)
 	{
-		*size = ps->size_a;
 		stk = ps->stack_b;
+		*size = ps->size_b;
 	}
 	else
 		return (NULL);
@@ -44,10 +44,11 @@ void	swap(t_ps *ps, int stack, int display)
 		printf("error\n");
 		return ;
 	}
+	if (size < 2)
+		return ;
 	tmp = stk[0];
 	stk[0] = stk[1];
 	stk[1] = tmp;
-
 	if (stack == STACK_A && display == 1)
 		write(1, "sa\n", 3);
 	else if (stack == STACK_B && display == 1)
@@ -68,6 +69,8 @@ void	rotate(t_ps *ps, int stack, int display)
 	size_t size;
 
 	stk = get_stack(ps, stack,  &size);
+	if (size == 0)
+		return ;
 	tmp = stk[0];
 	ft_memmove(stk, &stk[1], (size - 1) * sizeof(int));
 	stk[size - 1] = tmp;
@@ -91,6 +94,8 @@ void	rev_rotate(t_ps *ps, int stack, int display)
 	size_t size;
 
 	stk = get_stack(ps, stack,  &size);
+	if (size == 0)
+		return ;
 	tmp = stk[size - 1];
 	ft_memmove(&stk[1], stk, (size - 1) * sizeof(int));
 	stk[0] = tmp;

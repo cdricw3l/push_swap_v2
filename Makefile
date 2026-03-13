@@ -6,7 +6,7 @@ SRCS 		:= 	${wildcard *.c}
 SRCS_ASSERT	:=	${wildcard assertions/*.c}
 SRCS_OBJS 	:=	${SRCS:.c=.o}
 ASSERT_OBJS	:=	${SRCS_ASSERT:.c=.o} ${SRCS_OBJS}
-PS_ARGS		:=	1 2 3 4 5 6 7
+PS_ARGS		:=	1 2 3 4 5 6 7 8
 
 %.o:%.c
 	${CC} ${GFLAGS} -c $^ -o $@
@@ -14,9 +14,13 @@ PS_ARGS		:=	1 2 3 4 5 6 7
 ${NAME}: ${SRCS_OBJS}
 	${CC} ${GFLAGS} ${SRCS_OBJS} -o ${NAME}
 
-as: ${ASSERT_OBJS}
+asm: ${ASSERT_OBJS}
 	${CC} ${GFLAGS} ${ASSERT_OBJS} -o ${ASSERT_NAME}
 	./${ASSERT_NAME} ${PS_ARGS}
+
+asm: ${ASSERT_OBJS}
+	${CC} ${GFLAGS} ${ASSERT_OBJS} -o ${ASSERT_NAME}
+	leaks --atExit -- ./${ASSERT_NAME} ${PS_ARGS}
 
 clean:
 	rm -rf ${SRCS_OBJS} ${ASSERT_OBJS}

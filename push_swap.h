@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:41:07 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/13 12:52:38 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/13 15:21:22 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	display_stack(t_ps *ps);
 
 //COMMANDE
 void	swap(t_ps *ps, int stack, int display);
+void	ss(t_ps *ps);
 void	pa(t_ps *ps);
 void	pb(t_ps *ps);
 void	rotate(t_ps *ps, int stack, int display);
