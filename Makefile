@@ -14,7 +14,7 @@ PS_ARGS		:=	1 2 3 4 5 6 7 8
 ${NAME}: ${SRCS_OBJS}
 	${CC} ${GFLAGS} ${SRCS_OBJS} -o ${NAME}
 
-asm: ${ASSERT_OBJS}
+as: ${ASSERT_OBJS}
 	${CC} ${GFLAGS} ${ASSERT_OBJS} -o ${ASSERT_NAME}
 	./${ASSERT_NAME} ${PS_ARGS}
 

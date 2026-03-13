@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 12:01:35 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/13 13:15:08 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/13 18:15:47 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,25 @@ int	clean_stack(t_ps *ps, int err)
 		ps->stack_b = NULL;
 	}
 	return (err);
+}
+
+int	*get_stack(t_ps *ps, int stack, size_t *size)
+{
+	int	*stk;
+
+	if (stack == STACK_A)
+	{
+		stk = ps->stack_a;
+		*size = ps->size_a;
+	}
+	else if (stack == STACK_B)
+	{
+		stk = ps->stack_b;
+		*size = ps->size_b;
+	}
+	else
+		return (NULL);
+	return (stk);
 }
 
 int	ft_atoi(const char *str)
@@ -81,16 +100,13 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 void	display_stack(t_ps *ps)
 {
 	size_t	i;
-	size_t total;
+	size_t	total;
 
 	i = 0;
 	printf("\n");
 	total = (ps->size_a + ps->size_b);
 	while (i < ps->size_a)
-	{
-		printf("%d ", ps->stack_a[i]);
-		i++;
-	}
+		printf("%d ", ps->stack_a[i++]);
 	while (i < total)
 	{
 		i++;
@@ -99,10 +115,7 @@ void	display_stack(t_ps *ps)
 	printf(" | a\n");
 	i = 0;
 	while (i < ps->size_b)
-	{
-		printf("%d ", ps->stack_b[i]);
-		i++;
-	}
+		printf("%d ", ps->stack_b[i++]);
 	while (i < total)
 	{
 		i++;

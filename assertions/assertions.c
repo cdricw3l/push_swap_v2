@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 11:52:56 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/13 16:12:11 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/13 18:13:46 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int push_assert(t_ps	*ps)
 	printf(CGREEN"\ninital state:\n"CRESET);
 	display_stack(ps);
 	while (ps->size_a > 0)
-		pb(ps);
+		push(ps,STACK_A,STACK_B);
 	assert(ps->size_b == total_len);
 	assert(ps->size_a == 0);
 	printf(CGREEN"\nafter push b\n"CRESET);
 	display_stack(ps);
 	while (ps->size_b > 0)
-		pa(ps);
+		push(ps,STACK_B,STACK_A);
 	assert(ps->size_b == 0);
 	assert(ps->size_a == total_len);
 	printf(CGREEN"\nafter push a\n"CRESET);
@@ -50,7 +50,7 @@ int rotate_assert(t_ps *ps)
 	}
 	assert(ps->stack_a[0] == initial_value);
 	while (ps->size_a > 0)
-		pb(ps);
+		push(ps, STACK_A, STACK_B);
 	i = 0;
 	printf(CGREEN"\nRotate B:\n"CRESET);
 	display_stack(ps);
@@ -81,7 +81,7 @@ int rev_rotate_assert(t_ps *ps)
 	}
 	assert(ps->stack_b[0] == initial_value);
 	while (ps->size_b > 0)
-		pa(ps);
+		push(ps, STACK_B, STACK_A);
 	i = 0;
 	printf(CGREEN"\nRev Rotate A:\n"CRESET);
 	display_stack(ps);
@@ -103,7 +103,7 @@ int rr_assert(t_ps *ps)
 	int		initial_value_b;
 
 	while (ps->size_a != ps->size_b)
-		pb(ps);
+		push(ps, STACK_A, STACK_B);
 	initial_value_a = ps->stack_a[0];
 	initial_value_b = ps->stack_b[0];
 	printf(CGREEN"\nrr rotate:\n"CRESET);
@@ -111,7 +111,7 @@ int rr_assert(t_ps *ps)
 	i = 0;
 	while (i < ps->size_a)
 	{
-		rr(ps);
+		multi_move(ps, RR);
 		display_stack(ps);
 		i++;
 	}
@@ -126,7 +126,7 @@ int rrr_assert(t_ps *ps)
 	int		initial_value_b;
 
 	while (ps->size_a != ps->size_b)
-		pb(ps);
+		push(ps, STACK_A, STACK_B);
 	initial_value_a = ps->stack_a[0];
 	initial_value_b = ps->stack_b[0];
 	printf(CGREEN"\nrrr rotate:\n"CRESET);
@@ -134,7 +134,7 @@ int rrr_assert(t_ps *ps)
 	i = 0;
 	while (i < ps->size_a)
 	{
-		rrr(ps);
+		multi_move(ps, RRR);
 		display_stack(ps);
 		i++;
 	}
@@ -160,16 +160,16 @@ int	swap_assert(t_ps *ps)
 	swap(ps, STACK_B, 0);
 	assert(ps->stack_a[0] == a_2 && ps->stack_a[1] == a_1 && ps->stack_b[0] == b_2 && ps->stack_b[1] == b_1);
 	display_stack(ps);
-	ss(ps);
+	multi_move(ps, SS);
 	assert(ps->stack_a[0] == a_1 && ps->stack_a[1] == a_2 && ps->stack_b[0] == b_1 && ps->stack_b[1] == b_2);
 	display_stack(ps);
 	while (ps->size_b > 0)
-		pa(ps);
-	pa(ps);
+		push(ps, STACK_B, STACK_A);
+	push(ps, STACK_B, STACK_A);
 	swap(ps, STACK_B, 0);
-	ss(ps);	
-	rrr(ps);
-	rr(ps);
+	multi_move(ps, SS);	
+	multi_move(ps, RRR);	
+	multi_move(ps, RR);	
 	assert(ps->size_b == 0 && ps->size_a == initial_size);
 	return (1);
 }

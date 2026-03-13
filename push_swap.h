@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:41:07 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/13 15:21:22 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/13 18:12:29 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,15 @@
 # include <unistd.h>
 # include "assertions/assertions.h"
 
-# define ERROR   -1
 # define OK      1
+# define ERROR   -1
+
 # define STACK_A 0
 # define STACK_B 1
+
+#define SS 0
+#define RR 1
+#define RRR 2
 
 typedef struct s_ps
 {
@@ -41,15 +46,14 @@ int		ft_atoi(const char *str);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 int		clean_stack(t_ps *ps, int err);
 void	display_stack(t_ps *ps);
+int		*get_stack(t_ps *ps, int stack, size_t *size);
 
 //COMMANDE
+
+void	push(t_ps *ps, int src, int dst);
 void	swap(t_ps *ps, int stack, int display);
-void	ss(t_ps *ps);
-void	pa(t_ps *ps);
-void	pb(t_ps *ps);
 void	rotate(t_ps *ps, int stack, int display);
 void	rev_rotate(t_ps *ps, int stack, int display);
-void	rr(t_ps *ps);
-void	rrr(t_ps *ps);
+void	multi_move(t_ps *ps, int move);
 
 #endif
