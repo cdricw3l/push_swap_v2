@@ -22,7 +22,8 @@ all: re
 
 run:
 	./${NAME} 1 2 3 4 5 6
-git:
+
+git: fclean
 	git add .
 	git commit -m ${COM}
 	git push origin ${shell git branch --show-current}
