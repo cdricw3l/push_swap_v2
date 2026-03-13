@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_utils.c                                  :+:      :+:    :+:   */
+/*   push_swap_utils_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 12:01:35 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/13 19:14:11 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/13 19:19:13 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,31 +109,4 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 		}
 	}
 	return (dest);
-}
-
-void	display_stack(t_ps *ps)
-{
-	size_t	i;
-	size_t	total;
-
-	i = 0;
-	printf("\n");
-	total = (ps->size_a + ps->size_b);
-	while (i < ps->size_a)
-		printf("%d ", ps->stack_a[i++]);
-	while (i < total)
-	{
-		i++;
-		printf(" .");
-	}
-	printf(" | a\n");
-	i = 0;
-	while (i < ps->size_b)
-		printf("%d ", ps->stack_b[i++]);
-	while (i < total)
-	{
-		i++;
-		printf(" .");
-	}
-	printf(" | b\n\n");
 }
