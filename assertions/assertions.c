@@ -1,39 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   assertions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/04 20:58:54 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/13 04:51:57 by cdric.b          ###   ########.fr       */
+/*   Created: 2026/03/13 11:52:56 by cdric.b           #+#    #+#             */
+/*   Updated: 2026/03/13 12:31:32 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../push_swap.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+int	push_swap_assertion(char **argv)
 {
-	size_t	i;
-
-	if (!dest && !src)
-		return (NULL);
-	if (src < dest)
+	t_ps	ps;
+	
+	if (init_stacks(&ps, &argv[1]) == ERROR)
 	{
-		while (n > 0)
-		{
-			((unsigned char *)dest)[n - 1] = ((unsigned char *)src)[n - 1];
-			n--;
-		}
+		write(1, "Error\n", 6);
+		return (1);
 	}
-	else
-	{
-		i = 0;
-		while (i < n)
-		{
-			((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
-			i++;
-		}
-	}
-	return (dest);
+	display_stack(&ps, STACK_A);
+	pb(&ps);
+	display_stack(&ps, STACK_A);
+	display_stack(&ps, STACK_B);
+	return (clean_stack(&ps, 0));
 }

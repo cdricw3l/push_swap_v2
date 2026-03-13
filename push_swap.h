@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:41:07 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/13 05:26:13 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/13 12:29:59 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
-# include <assert.h>
+# include "assertions/assertions.h"
 
 # define ERROR   -1
 # define OK      1
@@ -32,10 +32,17 @@ typedef struct s_ps
 
 }	t_ps;
 
+//INITIALISATION
+int		init_stacks(t_ps *ps, char **argv);
+
+//UTILS
 int		ft_isdigit(int c);
 int		ft_atoi(const char *str);
 void	*ft_memmove(void *dest, const void *src, size_t n);
+int		clean_stack(t_ps *ps, int err);
+void	display_stack(t_ps *ps, int stack);
 
+//COMMANDE
 void	swap(t_ps *ps, int stack, int display);
 void	pa(t_ps *ps);
 void	pb(t_ps *ps);
