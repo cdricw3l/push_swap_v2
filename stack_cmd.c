@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 04:36:23 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/13 05:06:25 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/13 05:30:04 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,61 @@ void	rotate(t_ps *ps, int stack, int display)
 		write(1, "ra\n", 3);
 	else if (stack == STACK_B && display == 1)
 		write(1, "rb\n", 3);
+}
+
+void rr(t_ps *ps)
+{
+	rotate(ps, STACK_A, 0);
+	rotate(ps, STACK_B, 0);
+	write(1, "rr\n", 3);
+}
+
+void	rev_rotate(t_ps *ps, int stack, int display)
+{
+	int	*stk;
+	int tmp;
+	size_t size;
+
+	stk = get_stack(ps, stack,  &size);
+	tmp = stk[size - 1];
+	ft_memmove(&stk[1], stk, (size - 1) * sizeof(int));
+	stk[0] = tmp;
+	if (stack == STACK_A && display == 1)
+		write(1, "rra\n", 4);
+	else if (stack == STACK_B && display == 1)
+		write(1, "rrb\n", 4);
+}
+
+void rrr(t_ps *ps)
+{
+	rev_rotate(ps, STACK_A, 0);
+	rev_rotate(ps, STACK_B, 0);
+	write(1, "rrr\n", 4);
+}
+
+void pa(t_ps *ps)
+{
+	int tmp;
+
+	tmp = ps->stack_b[0];
+	ft_memmove(ps->stack_b, &ps->stack_b[1], ps->size_b - 1 * sizeof(int));
+	ps->size_b--;
+	ft_memmove(&ps->stack_a[1], ps->stack_a, ps->size_a - 1 * sizeof(int));
+	ps->stack_a[0] = tmp;
+	ps->size_a++;
+	write(1, "pa\n", 3);
+}
+
+void pb(t_ps *ps)
+{
+	int tmp;
+
+	tmp = ps->stack_a[0];
+	ft_memmove(ps->stack_a, &ps->stack_a[1], ps->size_a * sizeof(int));
+	ps->size_a--;
+	if(ps->size_b > 0)
+		ft_memmove(&ps->stack_b[1], ps->stack_b, ps->size_b * sizeof(int));
+	ps->stack_b[0] = tmp;
+	ps->size_b++;
+	write(1, "pb\n", 3);
 }

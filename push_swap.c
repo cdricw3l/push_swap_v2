@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:24:54 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/13 05:07:20 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/13 05:26:50 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,8 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	display_stack(&ps, STACK_A);
+	pb(&ps);
+	display_stack(&ps, STACK_A);
+	display_stack(&ps, STACK_B);
 	return (0);
 }
