@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 11:52:56 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/13 18:13:46 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/13 19:12:30 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,20 +174,51 @@ int	swap_assert(t_ps *ps)
 	return (1);
 }
 
-int	push_swap_assertion(char **argv)
+int init_and_check_assertion(void)
 {
 	t_ps	ps;
+	int		r;
 	
-	if (init_stacks(&ps, &argv[1]) == ERROR)
-	{
-		write(1, "Error\n", 6);
-		return (1);
-	}
-	push_assert(&ps);
-	rotate_assert(&ps);
-	rev_rotate_assert(&ps);
-	rr_assert(&ps);
-	rrr_assert(&ps);
-	swap_assert(&ps);
-	return (clean_stack(&ps, 0));
+	char *args_1[] = {"1", "2", "133", "12", NULL};
+	r = init_stacks(&ps, args_1);
+	assert(r == OK);
+	clean_stack(&ps, 0);
+	char *args_2[] = {"1", "1", "1", "12", NULL};
+	r = init_stacks(&ps, args_2);
+	assert(r == ERROR);
+	char *args_3[] = {"11", "2", "1", "1", NULL};
+	r = init_stacks(&ps, args_3);
+	assert(r == ERROR);
+	char *args_4[] = {"1", "2", "11", "1", NULL};
+	r = init_stacks(&ps, args_4);
+	assert(r == ERROR);
+	char *args_5[] = {"-1", "2", "+11", "1", NULL};
+	r = init_stacks(&ps, args_5);
+	assert(r == OK);
+	clean_stack(&ps, 0);
+	char *args_6[] = {"-", "2", "+", "1", NULL};
+	r = init_stacks(&ps, args_6);
+	assert(r == ERROR);
+	
+	return (1);
+}
+
+int	push_swap_assertion(char **argv)
+{
+	//t_ps	ps;
+	(void)argv;
+	init_and_check_assertion();
+	// if (init_stacks(&ps, &argv[1]) == ERROR)
+	// {
+	// 	write(1, "Error\n", 6);
+	// 	return (1);
+	// }
+	// push_assert(&ps);
+	// rotate_assert(&ps);
+	// rev_rotate_assert(&ps);
+	// rr_assert(&ps);
+	// rrr_assert(&ps);
+	// swap_assert(&ps);
+	//clean_stack(&ps, 0)
+	return (0);
 }

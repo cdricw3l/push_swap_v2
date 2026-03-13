@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:41:07 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/13 18:12:29 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/13 19:06:50 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n);
 int		clean_stack(t_ps *ps, int err);
 void	display_stack(t_ps *ps);
 int		*get_stack(t_ps *ps, int stack, size_t *size);
+int     ft_strcmp(const char *s1, const char *s2);
 
 //COMMANDE
 
