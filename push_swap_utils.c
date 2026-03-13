@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 12:01:35 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/13 12:20:44 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/13 13:15:08 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,31 +78,35 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-void	display_stack(t_ps *ps, int stack)
+void	display_stack(t_ps *ps)
 {
 	size_t	i;
-	size_t	size;
-	int		*stk;
+	size_t total;
 
-	if (stack == STACK_A)
-	{
-		stk = ps->stack_a;
-		size = ps->size_a;
-	}
-	else if (stack == STACK_B)
-	{
-		stk = ps->stack_b;
-		size = ps->size_b;
-	}
-	else
-		return ;
 	i = 0;
-	while (i < size)
+	printf("\n");
+	total = (ps->size_a + ps->size_b);
+	while (i < ps->size_a)
 	{
-		printf("%d", stk[i]);
-		if (i < size - 1)
-			printf(" ");
+		printf("%d ", ps->stack_a[i]);
 		i++;
 	}
-	printf("\n");
+	while (i < total)
+	{
+		i++;
+		printf(" .");
+	}
+	printf(" | a\n");
+	i = 0;
+	while (i < ps->size_b)
+	{
+		printf("%d ", ps->stack_b[i]);
+		i++;
+	}
+	while (i < total)
+	{
+		i++;
+		printf(" .");
+	}
+	printf(" | b\n\n");
 }

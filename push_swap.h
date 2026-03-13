@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:41:07 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/13 12:29:59 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/13 12:52:38 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		ft_isdigit(int c);
 int		ft_atoi(const char *str);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 int		clean_stack(t_ps *ps, int err);
-void	display_stack(t_ps *ps, int stack);
+void	display_stack(t_ps *ps);
 
 //COMMANDE
 void	swap(t_ps *ps, int stack, int display);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_cmd.c                                        :+:      :+:    :+:   */
+/*   push_swap_cmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 04:36:23 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/13 05:30:04 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/13 13:22:05 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,13 @@ void pa(t_ps *ps)
 {
 	int tmp;
 
+	if (ps->size_b == 0)
+		return ;
 	tmp = ps->stack_b[0];
-	ft_memmove(ps->stack_b, &ps->stack_b[1], ps->size_b - 1 * sizeof(int));
+	ft_memmove(ps->stack_b, &ps->stack_b[1], ps->size_b  * sizeof(int));
 	ps->size_b--;
-	ft_memmove(&ps->stack_a[1], ps->stack_a, ps->size_a - 1 * sizeof(int));
+	if(ps->size_a > 0)
+		ft_memmove(&ps->stack_a[1], ps->stack_a, ps->size_a  * sizeof(int));
 	ps->stack_a[0] = tmp;
 	ps->size_a++;
 	write(1, "pa\n", 3);
@@ -124,6 +127,8 @@ void pb(t_ps *ps)
 {
 	int tmp;
 
+	if (ps->size_a == 0)
+		return ;
 	tmp = ps->stack_a[0];
 	ft_memmove(ps->stack_a, &ps->stack_a[1], ps->size_a * sizeof(int));
 	ps->size_a--;
