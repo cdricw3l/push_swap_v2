@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:41:07 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/13 19:06:50 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/22 00:36:14 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,22 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <string.h>
 # include "assertions/assertions.h"
 
 # define OK      1
 # define ERROR   -1
 
-# define STACK_A 0
-# define STACK_B 1
+# define STACK_A	0
+# define STACK_B	1
+# define STACK_AB	2
 
 #define SS 0
 #define RR 1
 #define RRR 2
+
+#define NL printf("\n")
+#define NB(n) printf("%d ",n)
 
 typedef struct s_ps
 {
@@ -34,11 +39,13 @@ typedef struct s_ps
 	int		*stack_b;
 	size_t	size_a;
 	size_t	size_b;
+	size_t	total_size;
 
 }	t_ps;
 
 //INITIALISATION
 int		init_stacks(t_ps *ps, char **argv);
+int	check_args(char *argv[]);
 
 //UTILS
 int		ft_isdigit(int c);
@@ -51,10 +58,16 @@ int     ft_strcmp(const char *s1, const char *s2);
 
 //COMMANDE
 
-void	push(t_ps *ps, int src, int dst);
-void	swap(t_ps *ps, int stack, int display);
-void	rotate(t_ps *ps, int stack, int display);
-void	rev_rotate(t_ps *ps, int stack, int display);
-void	multi_move(t_ps *ps, int move);
+void	push_v1(t_ps *ps, int src, int dst);
+void	swap_v1(t_ps *ps, int stack, int display);
+void	rotate_v1(t_ps *ps, int stack, int display);
+void	rev_rotate_v1(t_ps *ps, int stack, int display);
+void	multi_move_v1(t_ps *ps, int move);
+
+// Commande V2
+
+void	push(t_ps *s, int stack);
+void	rotate(t_ps *s, int stack);
+void	display_stack_v2(t_ps *s, int stack);
 
 #endif

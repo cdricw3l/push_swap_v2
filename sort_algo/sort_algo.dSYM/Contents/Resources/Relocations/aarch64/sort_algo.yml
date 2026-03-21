@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/cdric.b/Documents/42berlin/push_swap_v2/sort_algo/sort_algo'
+relocations:     []
+...
