@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:41:07 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/22 01:19:21 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/22 15:57:15 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	multi_move_v1(t_ps *ps, int move);
 
 void	push(t_ps *s, int stack);
 void	rotate(t_ps *s, int stack);
+void	rev_rotate(t_ps *s, int stack);
 void	display_stack_v2(t_ps *s, int stack);
 void	print_instruction(t_ps *s, int stack, void *fonction);
 

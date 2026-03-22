@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:24:54 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/22 01:18:37 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/22 16:24:18 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	init_stacks_v2(t_ps *ps, char **argv, int argc)
 {
 	int	i;
 
-	// i = check_args(argv);
-	// if (i == ERROR)
-	// 	return (ERROR);
+	i = check_args(argv);
+	if (i == ERROR)
+		return (ERROR);
 	ps->size_a = argc;
 	ps->total_size = argc;
 	ps->stack_a = malloc(sizeof(int) * argc);
@@ -46,33 +46,12 @@ int	main(int argc, char **argv)
 
 	t_ps stacks;
 
-
 	if(init_stacks_v2(&stacks, &argv[1], argc - 1) == ERROR)
 	{
 		printf("Error\n");
 		return (0);
 	}
-	
-
-	push(&stacks, STACK_B);
-	push(&stacks, STACK_B);
-	push(&stacks, STACK_B);
-
-	display_stack_v2(&stacks, STACK_A);
-	display_stack_v2(&stacks, STACK_B);
-	
-	swap(&stacks, STACK_A);
-	swap(&stacks, STACK_B);
-	
-	display_stack_v2(&stacks, STACK_A);
-	display_stack_v2(&stacks, STACK_B);
-	
-	swap(&stacks, STACK_AB);
-	display_stack_v2(&stacks, STACK_A);
-	display_stack_v2(&stacks, STACK_B);
-	NL;
-	
-	
-	
+	else
+		printf("we can start\n");
 	return (0);
 }
