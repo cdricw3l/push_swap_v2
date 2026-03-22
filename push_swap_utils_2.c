@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 12:01:35 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/22 00:01:11 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/22 01:12:08 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	display_stack(t_ps *ps)
 {
-	size_t	i;
-	size_t	total;
+	int		i;
+	int		total;
 
 	i = 0;
 	printf("\n");

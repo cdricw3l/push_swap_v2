@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:41:07 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/22 00:36:14 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/22 01:19:21 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,20 @@ typedef struct s_ps
 {
 	int		*stack_a;
 	int		*stack_b;
-	size_t	size_a;
-	size_t	size_b;
-	size_t	total_size;
+	int		size_a;
+	int		size_b;
+	int		total_size;
 
 }	t_ps;
 
 //INITIALISATION
 int		init_stacks(t_ps *ps, char **argv);
-int	check_args(char *argv[]);
+int		check_args(char *argv[]);
 
 //UTILS
 int		ft_isdigit(int c);
 int		ft_atoi(const char *str);
+void	ft_swap(int *a, int *b);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 int		clean_stack(t_ps *ps, int err);
 void	display_stack(t_ps *ps);
@@ -69,5 +70,6 @@ void	multi_move_v1(t_ps *ps, int move);
 void	push(t_ps *s, int stack);
 void	rotate(t_ps *s, int stack);
 void	display_stack_v2(t_ps *s, int stack);
+void	print_instruction(t_ps *s, int stack, void *fonction);
 
 #endif

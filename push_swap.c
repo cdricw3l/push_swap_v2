@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:24:54 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/22 00:39:40 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/22 01:18:37 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	init_stacks_v2(t_ps *ps, char **argv, int argc)
 		return (ERROR);
 	ps->stack_b = ps->stack_a - 1 ;
 	i = 0;
-	while ((size_t)i < ps->size_a)
+	while (i < ps->size_a)
 	{
 		ps->stack_a[i] = ft_atoi(argv[i]);
 		i++;
@@ -35,8 +35,6 @@ int	init_stacks_v2(t_ps *ps, char **argv, int argc)
 	ps->size_b = 0;
 	return (OK);
 }
-
-
 
 
 
@@ -54,20 +52,24 @@ int	main(int argc, char **argv)
 		printf("Error\n");
 		return (0);
 	}
+	
+
 	push(&stacks, STACK_B);
 	push(&stacks, STACK_B);
 	push(&stacks, STACK_B);
+
+	display_stack_v2(&stacks, STACK_A);
+	display_stack_v2(&stacks, STACK_B);
 	
-	rotate(&stacks, STACK_A);
-	rotate(&stacks, STACK_B);
-	rotate(&stacks, STACK_AB);
+	swap(&stacks, STACK_A);
+	swap(&stacks, STACK_B);
 	
-	push(&stacks, STACK_A);
-	push(&stacks, STACK_A);
-	push(&stacks, STACK_A);
-	push(&stacks, STACK_A);
-	push(&stacks, STACK_A);
+	display_stack_v2(&stacks, STACK_A);
+	display_stack_v2(&stacks, STACK_B);
 	
+	swap(&stacks, STACK_AB);
+	display_stack_v2(&stacks, STACK_A);
+	display_stack_v2(&stacks, STACK_B);
 	NL;
 	
 	

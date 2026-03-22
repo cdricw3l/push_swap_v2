@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 11:57:20 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/21 05:32:56 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/22 01:11:09 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	init_stacks(t_ps *ps, char **argv)
 		return (ERROR);
 	}
 	i = 0;
-	while ((size_t)i < ps->size_a)
+	while (i < ps->size_a)
 	{
 		ps->stack_a[i] = ft_atoi(argv[i]);
 		i++;
