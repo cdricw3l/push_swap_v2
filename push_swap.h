@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:41:07 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/22 15:57:15 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/23 02:47:00 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,16 @@
 
 #define NL printf("\n")
 #define NB(n) printf("%d ",n)
+#define	DEBBUG printf(CRED"debug\n"CRESET)
 
 typedef struct s_ps
 {
+	int 	*buffer;
 	int		*stack_a;
 	int		*stack_b;
 	int		size_a;
 	int		size_b;
+	int		biggest;
 	int		total_size;
 
 }	t_ps;
@@ -68,9 +71,15 @@ void	multi_move_v1(t_ps *ps, int move);
 // Commande V2
 
 void	push(t_ps *s, int stack);
+void	swap(t_ps *s, int stack);
 void	rotate(t_ps *s, int stack);
 void	rev_rotate(t_ps *s, int stack);
 void	display_stack_v2(t_ps *s, int stack);
 void	print_instruction(t_ps *s, int stack, void *fonction);
+
+//UTILS_V2
+
+int		get_target(int *arr, int len, int value);
+int		find_the_biggest_value(int *arr, int len);
 
 #endif

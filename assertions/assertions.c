@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 11:52:56 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/13 19:12:30 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/23 02:44:49 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,28 @@ int init_and_check_assertion(void)
 	
 	return (1);
 }
+
+void get_target_assertion()
+{
+	int arr_int[] = {
+		101, -1 , 32, 45, 7,  89, -23, 56, 0,  14,
+		67, -45 , 23, 9, 100, -12, 38, 72, -8, 55,
+		91, 340
+	};
+
+	int target;
+	target = get_target(arr_int, sizeof(arr_int) / sizeof(arr_int[0]), 55);
+	assert(target == 56);
+	target = get_target(arr_int, sizeof(arr_int) / sizeof(arr_int[0]), 3);
+	assert(target == 7);
+	target = get_target(arr_int, sizeof(arr_int) / sizeof(arr_int[0]), 100);
+	assert(target == 101);
+	target = get_target(arr_int, sizeof(arr_int) / sizeof(arr_int[0]), 29);
+	assert(target == 32);
+	target = get_target(arr_int, sizeof(arr_int) / sizeof(arr_int[0]), 24);
+	assert(target == 32);
+}
+
 
 int	push_swap_assertion(char **argv)
 {

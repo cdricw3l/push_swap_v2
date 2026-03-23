@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 11:57:20 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/22 01:11:09 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/23 01:35:04 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	check_args(char *argv[])
 		j = 0;
 		if ((argv[i][j] == '+' && argv[i][j + 1])
 			|| (argv[i][j] == '-' && argv[i][j + 1]))
-			i++;
+			j++;
 		while (argv[i][j])
 		{
 			if (argv[i][j] < '0' || argv[i][j] > '9')
@@ -60,6 +60,7 @@ int	check_args(char *argv[])
 int	init_stacks(t_ps *ps, char **argv)
 {
 	int	i;
+	int bigest;
 
 	i = check_args(argv);
 	if (i == ERROR)
@@ -78,6 +79,8 @@ int	init_stacks(t_ps *ps, char **argv)
 	while (i < ps->size_a)
 	{
 		ps->stack_a[i] = ft_atoi(argv[i]);
+		if (ps->stack_a[i] > bigest)
+			bigest = ps->stack_a[i];
 		i++;
 	}
 	ps->size_b = 0;

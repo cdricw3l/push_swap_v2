@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 04:36:23 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/22 16:22:38 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/22 19:43:03 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ void	rotate(t_ps *s, int stack)
 	int		tmp;
 	size_t	size;
 
-	if (stack == STACK_A || stack == STACK_AB)
+	if ((stack == STACK_A  || stack == STACK_AB) && s->size_a > 1)
 	{
 		tmp = *(s->stack_a);
 		size = (s->size_a - 1) * sizeof(int);
 		ft_memmove(s->stack_a, s->stack_a + 1, size);
 		*(s->stack_a + (s->size_a - 1)) = tmp;
 	}
-	if (stack == STACK_B || stack == STACK_AB)
+	if ((stack == STACK_B  || stack == STACK_AB) && s->size_b > 1)
 	{
 		tmp = *(s->stack_b);
 		size = (s->size_b - 1) * sizeof(int);
@@ -98,14 +98,14 @@ void	rev_rotate(t_ps *s, int stack)
 	int		tmp;
 	size_t	size;
 
-	if (stack == STACK_A || stack == STACK_AB)
+	if ((stack == STACK_A  || stack == STACK_AB) && s->size_a > 1)
 	{
 		tmp = *(s->stack_a + s->size_a - 1) ;
 		size = (s->size_a - 1) * sizeof(int);
 		ft_memmove(s->stack_a + 1, s->stack_a, size);
 		*(s->stack_a) = tmp;
 	}
-	if (stack == STACK_B || stack == STACK_AB)
+	if ((stack == STACK_B  || stack == STACK_AB) && s->size_b > 1)
 	{
 		tmp = *(s->stack_b - (s->size_b - 1));
 		size = (s->size_b - 1) * sizeof(int);
