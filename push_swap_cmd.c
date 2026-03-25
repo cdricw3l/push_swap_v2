@@ -6,13 +6,13 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 04:36:23 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/22 00:25:08 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/25 08:13:04 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	swap_v1(t_ps *ps, int stack, int display)
+void	swap(t_ps *ps, int stack, int display)
 {
 	int		tmp;
 	int		*stk;
@@ -32,7 +32,7 @@ void	swap_v1(t_ps *ps, int stack, int display)
 		write(1, "sb\n", 3);
 }
 
-void	rotate_v1(t_ps *ps, int stack, int display)
+void	rotate(t_ps *ps, int stack, int display)
 {
 	int		tmp;
 	int		*stk;
@@ -50,7 +50,7 @@ void	rotate_v1(t_ps *ps, int stack, int display)
 		write(1, "rb\n", 3);
 }
 
-void	rev_rotate_v1(t_ps *ps, int stack, int display)
+void	rev_rotate(t_ps *ps, int stack, int display)
 {
 	int		tmp;
 	int		*stk;
@@ -68,7 +68,7 @@ void	rev_rotate_v1(t_ps *ps, int stack, int display)
 		write(1, "rrb\n", 4);
 }
 
-void	push_v1(t_ps *ps, int src, int dst)
+void	push(t_ps *ps, int src, int dst)
 {
 	int		tmp;
 	int		*src_stack;
@@ -97,24 +97,24 @@ void	push_v1(t_ps *ps, int src, int dst)
 	write(1, "pb\n", 3);
 }
 
-void	multi_move_v1(t_ps *ps, int move)
+void	multi_move(t_ps *ps, int move)
 {
 	if (move == SS)
 	{
-		swap_v1(ps, STACK_A, 0);
-		swap_v1(ps, STACK_B, 0);
+		swap(ps, STACK_A, 0);
+		swap(ps, STACK_B, 0);
 		write(1, "ss\n", 3);
 	}
 	else if (move == RR)
 	{
-		rotate_v1(ps, STACK_A, 0);
-		rotate_v1(ps, STACK_B, 0);
+		rotate(ps, STACK_A, 0);
+		rotate(ps, STACK_B, 0);
 		write(1, "rr\n", 3);
 	}
 	else if (move == RRR)
 	{
-		rev_rotate_v1(ps, STACK_A, 0);
-		rev_rotate_v1(ps, STACK_B, 0);
+		rev_rotate(ps, STACK_A, 0);
+		rev_rotate(ps, STACK_B, 0);
 		write(1, "rrr\n", 4);
 	}
 	return ;

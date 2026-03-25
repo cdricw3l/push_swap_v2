@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:41:07 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/23 02:47:00 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/25 09:20:47 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,26 @@
 #define NB(n) printf("%d ",n)
 #define	DEBBUG printf(CRED"debug\n"CRESET)
 
+enum field
+{
+	STACK,
+	V,
+	V_IDX,
+	SSIZE,
+	T,
+	T_IDX,
+	DSIZE,
+	COST
+};
+
+
 typedef struct s_ps
 {
-	int 	*buffer;
 	int		*stack_a;
 	int		*stack_b;
+	int 	*cost_arr;
 	int		size_a;
 	int		size_b;
-	int		biggest;
-	int		total_size;
 
 }	t_ps;
 
@@ -62,24 +73,21 @@ int     ft_strcmp(const char *s1, const char *s2);
 
 //COMMANDE
 
-void	push_v1(t_ps *ps, int src, int dst);
-void	swap_v1(t_ps *ps, int stack, int display);
-void	rotate_v1(t_ps *ps, int stack, int display);
-void	rev_rotate_v1(t_ps *ps, int stack, int display);
-void	multi_move_v1(t_ps *ps, int move);
+void	push(t_ps *ps, int src, int dst);
+void	swap(t_ps *ps, int stack, int display);
+void	rotate(t_ps *ps, int stack, int display);
+void	rev_rotate(t_ps *ps, int stack, int display);
+void	multi_move(t_ps *ps, int move);
 
-// Commande V2
-
-void	push(t_ps *s, int stack);
-void	swap(t_ps *s, int stack);
-void	rotate(t_ps *s, int stack);
-void	rev_rotate(t_ps *s, int stack);
-void	display_stack_v2(t_ps *s, int stack);
-void	print_instruction(t_ps *s, int stack, void *fonction);
 
 //UTILS_V2
 
-int		get_target(int *arr, int len, int value);
+int		get_target_value(int *dest, int dest_size, int value);
+int		get_target_idx(int *dest, int dest_size, int value);
 int		find_the_biggest_value(int *arr, int len);
+
+// COST
+
+void cost_calculation(t_ps *s);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 12:01:35 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/23 02:46:24 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/25 08:35:33 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,32 +39,6 @@ void	display_stack(t_ps *ps)
 	printf(" | b\n\n");
 }
 
-
-void display_stack_v2(t_ps *s, int stack)
-{
-	int size;
-	int *ptr;
-
-	if (stack == STACK_A)
-		ptr = s->stack_a;
-	else if(stack == STACK_B)
-		ptr = s->stack_b;
-	if (stack == STACK_A)
-		size = (int)s->size_a;
-	else
-		size = (int)s->size_b;
-	while (size > 0)
-	{
-		NB(*ptr);
-		size--;
-		if(stack == STACK_A)
-			ptr++;
-		else if(stack == STACK_B)
-			ptr--;
-	}
-	NL;
-}
-
 int find_the_biggest_value(int *arr, int len)
 {
 	int i;
@@ -81,18 +55,38 @@ int find_the_biggest_value(int *arr, int len)
 	return (biggest);
 }
 
-int		get_target(int *arr, int len, int value)
+int		get_target_value(int *dest, int dest_size, int value)
 {
 	int i;
 	int target;
 
 	i = 0;
-	target = find_the_biggest_value(arr, len);
-	while (i < len)
+	target = find_the_biggest_value(dest, dest_size);
+	while (i < dest_size)
 	{
-		if (arr[i] < target && arr[i] > value)
-			target = arr[i];
+		if (dest[i] < target && dest[i] > value)
+			target = dest[i];
 		i++;
 	}
 	return (target);
+}
+
+int		get_target_idx(int *dest, int dest_size, int value)
+{
+	int i;
+	int target;
+	int target_idx;
+
+	i = 0;
+	target = find_the_biggest_value(dest, dest_size);
+	while (i < dest_size)
+	{
+		if (dest[i] < target && dest[i] > value)
+		{
+			target = dest[i];
+			target_idx = i;
+		}
+		i++;
+	}
+	return (target_idx);
 }

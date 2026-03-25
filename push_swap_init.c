@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 11:57:20 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/23 01:35:04 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/25 08:20:32 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,30 +57,42 @@ int	check_args(char *argv[])
 	return (i);
 }
 
-int	init_stacks(t_ps *ps, char **argv)
-{
-	int	i;
-	int bigest;
 
-	i = check_args(argv);
-	if (i == ERROR)
-		return (ERROR);
-	ps->size_a = i;
-	ps->stack_a = malloc(sizeof(int) * i);
+int stack_allocation(t_ps *ps, int size)
+{
+	ps->stack_a = malloc(sizeof(int) * size);
 	if (!ps->stack_a)
 		return (ERROR);
-	ps->stack_b = malloc(sizeof(int) * i);
+	ps->stack_b = malloc(sizeof(int) * size);
 	if (!ps->stack_b)
 	{
 		free(ps->stack_a);
 		return (ERROR);
 	}
+	ps->cost_arr = malloc(sizeof(int) * (size * 8));
+	if (!ps->cost_arr)
+	{
+		free(ps->stack_a);
+		free(ps->stack_b);
+		return (ERROR);
+	}
+	return (OK);
+}
+
+int	init_stacks(t_ps *ps, char **argv)
+{
+	int	i;
+
+	i = check_args(argv);
+	if (i == ERROR)
+		return (ERROR);
+	ps->size_a = i;
+	if (stack_allocation(ps, i) == ERROR)
+		return (ERROR);
 	i = 0;
 	while (i < ps->size_a)
 	{
 		ps->stack_a[i] = ft_atoi(argv[i]);
-		if (ps->stack_a[i] > bigest)
-			bigest = ps->stack_a[i];
 		i++;
 	}
 	ps->size_b = 0;
