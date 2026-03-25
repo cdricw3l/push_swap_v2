@@ -6,39 +6,11 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 12:01:35 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/23 02:46:24 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/24 02:48:59 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	display_stack(t_ps *ps)
-{
-	int		i;
-	int		total;
-
-	i = 0;
-	printf("\n");
-	total = (ps->size_a + ps->size_b);
-	while (i < ps->size_a)
-		printf("%d ", ps->stack_a[i++]);
-	while (i < total)
-	{
-		i++;
-		printf(" .");
-	}
-	printf(" | a\n");
-	i = 0;
-	while (i < ps->size_b)
-		printf("%d ", ps->stack_b[i++]);
-	while (i < total)
-	{
-		i++;
-		printf(" .");
-	}
-	printf(" | b\n\n");
-}
-
 
 void display_stack_v2(t_ps *s, int stack)
 {
@@ -81,6 +53,27 @@ int find_the_biggest_value(int *arr, int len)
 	return (biggest);
 }
 
+int find_the_lowest_value_idx(int *arr, int len)
+{
+	int i;
+	int lowest_idx;
+	int lowest_value;
+
+	i = 0;
+	lowest_idx = 0;
+	lowest_value = arr[0];
+	while (i < len)
+	{
+		if (arr[i] < lowest_value)
+		{
+			lowest_value = arr[i];
+			lowest_idx = i;
+		}
+		i++;
+	}
+	return (lowest_idx);
+}
+
 int		get_target(int *arr, int len, int value)
 {
 	int i;
@@ -95,4 +88,38 @@ int		get_target(int *arr, int len, int value)
 		i++;
 	}
 	return (target);
+}
+
+int		get_target_idx(int *arr, int len, int value)
+{
+	int i;
+
+	i = 0;
+	while (i < len)
+	{
+		if (arr[i] == value)
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+int is_sort(int *s, int len)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < len)
+	{
+		j = i + 1;
+		while (j < len)
+		{
+			if (s[i] > s[j])
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }

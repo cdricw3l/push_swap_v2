@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 12:01:35 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/22 01:19:28 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/25 07:47:53 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 int	clean_stack(t_ps *ps, int err)
 {
-	if (ps->stack_a)
+	if (ps->buffer)
 	{
-		free(ps->stack_a);
-		ps->stack_a = NULL;
+		free(ps->buffer);
+		ps->buffer = NULL;
 	}
-	if (ps->stack_b)
+	if (ps->cost_arr)
 	{
-		free(ps->stack_b);
-		ps->stack_b = NULL;
+		free(ps->cost_arr);
+		ps->cost_arr = NULL;
 	}
 	return (err);
 }

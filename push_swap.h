@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:41:07 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/23 02:47:00 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/25 07:48:27 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 # include <unistd.h>
 # include <string.h>
 # include "assertions/assertions.h"
+
+#define CRED    "\033[31m"
+#define CGREEN  "\033[32m"
+#define CYELLOW "\033[33m"
+#define CBLUE   "\033[34m"
+#define CCYAN   "\033[35m"
+#define CRESET  "\033[0m"
 
 # define OK      1
 # define ERROR   -1
@@ -37,12 +44,11 @@
 typedef struct s_ps
 {
 	int 	*buffer;
+	int		*cost_arr;
 	int		*stack_a;
 	int		*stack_b;
 	int		size_a;
 	int		size_b;
-	int		biggest;
-	int		total_size;
 
 }	t_ps;
 
@@ -62,12 +68,6 @@ int     ft_strcmp(const char *s1, const char *s2);
 
 //COMMANDE
 
-void	push_v1(t_ps *ps, int src, int dst);
-void	swap_v1(t_ps *ps, int stack, int display);
-void	rotate_v1(t_ps *ps, int stack, int display);
-void	rev_rotate_v1(t_ps *ps, int stack, int display);
-void	multi_move_v1(t_ps *ps, int move);
-
 // Commande V2
 
 void	push(t_ps *s, int stack);
@@ -81,5 +81,21 @@ void	print_instruction(t_ps *s, int stack, void *fonction);
 
 int		get_target(int *arr, int len, int value);
 int		find_the_biggest_value(int *arr, int len);
+int		find_the_lowest_value_idx(int *arr, int len);
+int		is_sort(int *s, int len);
+int		get_target_idx(int *arr, int len, int value);
+int 	get_mediane(int *arr, int len);
+
+void 	print_arr(int *arr, int len);
+//algo
+
+void	sort_four(t_ps *s);
+void	sort_tree(t_ps *s, int stack);
+void	bubble_sort(int *arr, int len);
+void	push_swap_v1(t_ps *s);
+void 	push_swap_v2(t_ps *s);
+
+//sort
+
 
 #endif

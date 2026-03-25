@@ -1,121 +1,127 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_cmd.c                                    :+:      :+:    :+:   */
+/*   push_swap_cmd_V2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 04:36:23 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/22 00:25:08 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/25 07:56:09 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	swap_v1(t_ps *ps, int stack, int display)
+void	print_instruction(t_ps *s, int stack, void *fonction)
+{
+	if (!ft_strcmp((char *)fonction, "push"))
+	{
+		if (s->size_b > 0 && stack == STACK_A)
+			write(1, "pa\n", 3);
+		if (s->size_a  >= 0 && stack == STACK_B)
+			write(1, "pb\n", 3);
+	}
+	else if (!ft_strcmp((char *)fonction, "swap"))
+	{
+		if (s->size_a > 1 && stack == STACK_A)
+			write(1, "sa\n", 3);
+		else if (s->size_b > 1 && stack == STACK_B)
+			write(1, "sb\n", 3);
+		else if (stack == STACK_AB)
+			write(1, "ss\n", 3);
+	}
+	else if (!ft_strcmp((char *)fonction, "rotate"))
+	{
+		if (stack == STACK_A)
+			write(1, "ra\n", 3);
+		if (stack == STACK_B)
+			write(1, "rb\n", 3);
+		if (stack == STACK_AB)
+			write(1, "rr\n", 3);
+	}
+	else if (!ft_strcmp((char *)fonction, "rev_rotate"))
+	{
+		if (stack == STACK_A)
+			write(1, "rra\n", 4);
+		if (stack == STACK_B)
+			write(1, "rrb\n", 4);
+		if (stack == STACK_AB)
+			write(1, "rrr\n", 4);
+	}
+}
+
+
+void	push(t_ps *s, int stack)
+{
+	print_instruction(s, stack, (void *)(__func__));
+	if (stack == STACK_B && s->size_a != 0)
+	{
+		s->stack_a = s->stack_a + 1;
+		s->stack_b = s->stack_a - 1;
+		s->size_a--;
+		s->size_b++;
+	}
+	if (stack == STACK_A && s->size_b != 0)
+	{
+		s->stack_a = s->stack_a - 1;
+		if(s->stack_a == s->buffer)
+			s->stack_b = NULL;
+		else
+			s->stack_b = s->stack_a - 1;
+		s->size_a++;
+		s->size_b--;
+	}
+}
+
+void	rotate(t_ps *s, int stack)
 {
 	int		tmp;
-	int		*stk;
 	size_t	size;
 
-	stk = get_stack(ps, stack, &size);
-	if (!stk)
-		return ;
-	if (size < 2)
-		return ;
-	tmp = stk[0];
-	stk[0] = stk[1];
-	stk[1] = tmp;
-	if (stack == STACK_A && display == 1)
-		write(1, "sa\n", 3);
-	else if (stack == STACK_B && display == 1)
-		write(1, "sb\n", 3);
+	if ((stack == STACK_A  || stack == STACK_AB) && s->size_a > 1)
+	{
+		tmp = *(s->stack_a);
+		size = (s->size_a - 1) * sizeof(int);
+		ft_memmove(s->stack_a, s->stack_a + 1, size);
+		*(s->stack_a + (s->size_a - 1)) = tmp;
+	}
+	if ((stack == STACK_B  || stack == STACK_AB) && s->size_b > 1)
+	{
+		tmp = *(s->stack_b);
+		size = (s->size_b - 1) * sizeof(int);
+		ft_memmove(s->stack_b - 1, s->stack_b - (s->size_b - 1), size);
+		*(s->stack_b - (s->size_b - 1)) = tmp;
+	}
+	print_instruction(s, stack, (void *)(__func__));
 }
 
-void	rotate_v1(t_ps *ps, int stack, int display)
+void	rev_rotate(t_ps *s, int stack)
 {
 	int		tmp;
-	int		*stk;
 	size_t	size;
 
-	stk = get_stack(ps, stack, &size);
-	if (size == 0)
-		return ;
-	tmp = stk[0];
-	ft_memmove(stk, &stk[1], (size - 1) * sizeof(int));
-	stk[size - 1] = tmp;
-	if (stack == STACK_A && display == 1)
-		write(1, "ra\n", 3);
-	else if (stack == STACK_B && display == 1)
-		write(1, "rb\n", 3);
+	if ((stack == STACK_A  || stack == STACK_AB) && s->size_a > 1)
+	{
+		tmp = *(s->stack_a + s->size_a - 1) ;
+		size = (s->size_a - 1) * sizeof(int);
+		ft_memmove(s->stack_a + 1, s->stack_a, size);
+		*(s->stack_a) = tmp;
+	}
+	if ((stack == STACK_B  || stack == STACK_AB) && s->size_b > 1)
+	{
+		tmp = *(s->stack_b - (s->size_b - 1));
+		size = (s->size_b - 1) * sizeof(int);
+		ft_memmove(s->stack_b - (s->size_b - 1), s->stack_b - 1 , size);
+		*(s->stack_b ) = tmp;
+	}
+	print_instruction(s, stack, (void *)(__func__));
 }
 
-void	rev_rotate_v1(t_ps *ps, int stack, int display)
+void	swap(t_ps *s, int stack)
 {
-	int		tmp;
-	int		*stk;
-	size_t	size;
-
-	stk = get_stack(ps, stack, &size);
-	if (size == 0)
-		return ;
-	tmp = stk[size - 1];
-	ft_memmove(&stk[1], stk, (size - 1) * sizeof(int));
-	stk[0] = tmp;
-	if (stack == STACK_A && display == 1)
-		write(1, "rra\n", 4);
-	else if (stack == STACK_B && display == 1)
-		write(1, "rrb\n", 4);
-}
-
-void	push_v1(t_ps *ps, int src, int dst)
-{
-	int		tmp;
-	int		*src_stack;
-	int		*dst_stack;
-	size_t	size_src;
-	size_t	size_dst;
-
-	src_stack = get_stack(ps, src, &size_src);
-	dst_stack = get_stack(ps, dst, &size_dst);
-	if (size_src == 0)
-		return ;
-	tmp = src_stack[0];
-	ft_memmove(src_stack, &src_stack[1], size_src * sizeof(int));
-	if (size_dst > 0)
-		ft_memmove(&dst_stack[1], dst_stack, size_dst * sizeof(int));
-	dst_stack[0] = tmp;
-	if (dst == STACK_A)
-	{
-		ps->size_b--;
-		ps->size_a++;
-		write(1, "pa\n", 3);
-		return ;
-	}
-	ps->size_a--;
-	ps->size_b++;
-	write(1, "pb\n", 3);
-}
-
-void	multi_move_v1(t_ps *ps, int move)
-{
-	if (move == SS)
-	{
-		swap_v1(ps, STACK_A, 0);
-		swap_v1(ps, STACK_B, 0);
-		write(1, "ss\n", 3);
-	}
-	else if (move == RR)
-	{
-		rotate_v1(ps, STACK_A, 0);
-		rotate_v1(ps, STACK_B, 0);
-		write(1, "rr\n", 3);
-	}
-	else if (move == RRR)
-	{
-		rev_rotate_v1(ps, STACK_A, 0);
-		rev_rotate_v1(ps, STACK_B, 0);
-		write(1, "rrr\n", 4);
-	}
-	return ;
+	if (s->size_a > 1 && (stack == STACK_A | stack == STACK_AB))
+		ft_swap(s->stack_a, s->stack_a + 1);
+	if (s->size_b > 1 && (stack == STACK_B | stack == STACK_AB))
+		ft_swap(s->stack_b, s->stack_b - 1);
+	print_instruction(s, stack, (void *)(__func__));
 }
