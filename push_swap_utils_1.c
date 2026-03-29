@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 12:01:35 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/25 08:21:51 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/26 18:27:13 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,6 @@ int	clean_stack(t_ps *ps, int err)
 	{
 		free(ps->stack_b);
 		ps->stack_b = NULL;
-	}
-	if(ps->cost_arr)
-	{
-		free(ps->cost_arr);
-		ps->cost_arr = NULL;
 	}
 	return (err);
 }
@@ -49,78 +44,4 @@ int	*get_stack(t_ps *ps, int stack, size_t *size)
 	else
 		return (NULL);
 	return (stk);
-}
-
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	size_t	i;
-
-	i = 0;
-	while ((s1[i] || s2[i]))
-	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		i++;
-	}
-	return (0);
-}
-
-int	ft_atoi(const char *str)
-{
-	int	result;
-	int	minus;
-
-	minus = 0;
-	result = 0;
-	while ((*str >= 9 && *str <= 13) || *str == 32)
-		str++;
-	if (*str == 43 || *str == 45)
-	{
-		if (*str == 45)
-			minus = 1;
-		str++;
-	}
-	while (*str >= '0' && *str <= '9')
-	{
-		result = result * 10 + (*str - '0');
-		str++;
-	}
-	if (minus)
-		return (result * -1);
-	return (result);
-}
-
-void	*ft_memmove(void *dest, const void *src, size_t n)
-{
-	size_t	i;
-
-	if (!dest && !src)
-		return (NULL);
-	if (src < dest)
-	{
-		while (n > 0)
-		{
-			((unsigned char *)dest)[n - 1] = ((unsigned char *)src)[n - 1];
-			n--;
-		}
-	}
-	else
-	{
-		i = 0;
-		while (i < n)
-		{
-			((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
-			i++;
-		}
-	}
-	return (dest);
-}
-
-void ft_swap(int *a, int *b)
-{
-	int	tmp;
-
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
 }

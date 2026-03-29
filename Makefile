@@ -2,7 +2,7 @@ CC 			:= 	cc
 NAME 		:= 	push_swap
 ASSERT_NAME := 	assertions/assertion
 ALGO_NAME 	:= 	sort_algo/sort_algo
-GFLAGS 		:=	-Wall -Wextra -Werror
+GFLAGS 		:=	-Wall -Wextra -Werror -g
 SRCS 		:= 	${wildcard *.c}
 SRCS_ASSERT	:=	${wildcard assertions/*.c}
 SRCS_ALGO	:=	${wildcard sort_algo/*.c}
@@ -15,7 +15,7 @@ PS_ARGS		:=	1 2 3 4 5 6 7 8
 	${CC} ${GFLAGS} -c $^ -o $@
 
 ${NAME}:	${SRCS_OBJS}
-		${CC} ${GFLAGS} ${SRCS_OBJS} -o ${NAME}
+		${CC} ${GFLAGS} ${SRCS_OBJS} -Llibft_v2 -lft -o ${NAME}
 
 as: 	${ASSERT_OBJS}
 		${CC} ${GFLAGS} ${ASSERT_OBJS} -o ${ASSERT_NAME}
@@ -46,3 +46,6 @@ git: fclean
 	git add .
 	git commit -m ${COM}
 	git push origin ${shell git branch --show-current}
+
+lib:
+	cd libft_v2 && make re

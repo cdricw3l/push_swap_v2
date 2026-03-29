@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:41:07 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/25 09:20:47 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/26 18:24:19 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <string.h>
 # include "assertions/assertions.h"
+# include "libft_v2/libft.h"
 
 # define OK      1
 # define ERROR   -1
@@ -51,11 +52,21 @@ typedef struct s_ps
 {
 	int		*stack_a;
 	int		*stack_b;
-	int 	*cost_arr;
 	int		size_a;
 	int		size_b;
 
 }	t_ps;
+
+typedef struct s_cost
+{
+	int stack_value;
+	int value;
+	int value_idx;
+	int	target;
+	int	target_idx;
+	int cost;
+	
+} t_cost;
 
 //INITIALISATION
 int		init_stacks(t_ps *ps, char **argv);
@@ -85,9 +96,10 @@ void	multi_move(t_ps *ps, int move);
 int		get_target_value(int *dest, int dest_size, int value);
 int		get_target_idx(int *dest, int dest_size, int value);
 int		find_the_biggest_value(int *arr, int len);
+void	display_node_lst(void *ptr);
 
 // COST
 
-void cost_calculation(t_ps *s);
-
+t_cost	*get_best_cost(t_ps *s);
+int 	index_of(int *arr, int len, int target);
 #endif

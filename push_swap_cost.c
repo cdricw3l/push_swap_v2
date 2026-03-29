@@ -6,65 +6,117 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 08:14:22 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/25 09:44:02 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/26 18:16:15 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	display_cost(t_ps *s)
+int	cost_calc(int idx_src, int size_src, int idx_dest, int size_dest)
 {
-	int	i;
+	int	v1;
+	int	v2;
 
-	i = 0;
-	while (i < s->size_a + s->size_b)
-	{
-		printf(CBLUE"STACK: %d "CRESET, s->cost_arr[STACK + (i * 8)]);
-		printf(CCYAN"VALUE: %d "CRESET, s->cost_arr[V + (i * 8)]);
-		printf(CGREEN"VALUE_IDX: %d "CRESET, s->cost_arr[V_IDX + (i * 8)]);
-		printf(CRED"SSIZE: %d "CRESET, s->cost_arr[SSIZE + (i * 8)]);
-		printf(CBLUE"T: %d "CRESET, s->cost_arr[T + (i * 8)]);
-		printf(CCYAN"T_IDX: %d "CRESET, s->cost_arr[T_IDX + (i * 8)]);
-		printf(CGREEN"D_SIZE: %d "CRESET, s->cost_arr[DSIZE + (i * 8)]);
-		printf(CRED"COST: %d "CRESET, s->cost_arr[COST + (i * 8)]);
-		NL ;
-		i++;
-	}
+	if (idx_dest == idx_src)
+		return (idx_dest);
+	if (idx_src > (size_src / 2))
+		v1 = size_src - idx_src;
+	else
+		v1 = idx_src;
+	if (idx_dest > (size_dest / 2))
+		v2 = size_dest - idx_dest;
+	else
+		v2 = idx_dest;
+	return ((v1 + v2) + 1);
 }
 
-void	cost_calculation(t_ps *s)
+t_list	**get_cost_list_a(t_ps *s, t_list **lst)
 {
-	int	i;
-	int	j;
+	int		i;
+	t_cost	*cost;
+	t_list	*node;
 
 	i = 0;
 	while (i < s->size_a)
 	{
-		s->cost_arr[STACK + (i * 8)] = STACK_A;
-		s->cost_arr[V + (i * 8)] = s->stack_a[i];
-		s->cost_arr[V_IDX + (i * 8)] = i;
-		s->cost_arr[SSIZE + (i * 8)] = s->size_a;
-		s->cost_arr[T + (i * 8)] = get_target_value(s->stack_b, s->size_b, s->stack_a[i]);
-		s->cost_arr[T_IDX + (i * 8)] = get_target_idx(s->stack_b, s->size_b, s->stack_a[i]);
-		s->cost_arr[DSIZE + (i * 8)] = s->size_b;
-		s->cost_arr[COST + (i * 8)] = 0;
+		cost = malloc(sizeof(t_cost));
+		if (!cost)
+			return (NULL);
+		cost->stack_value = STACK_A;
+		cost->value = s->stack_a[i];
+		cost->value_idx = i;
+		cost->target_idx = get_target_idx(s->stack_b, s->size_b, s->stack_a[i]);
+		cost->target = s->stack_b[cost->target_idx];
+		cost->cost = cost_calc(i, s->size_a, cost->target_idx, s->size_b);
+		node = ft_lstnew(cost);
+		ft_lstadd_back(lst, node);
 		i++;
 	}
-	j = 0;
-	while (j < s->size_b)
-	{
-		s->cost_arr[STACK + ((j + i) * 8)] = STACK_B;
-		s->cost_arr[V + ((j + i) * 8)] = s->stack_b[j];
-		s->cost_arr[V_IDX + ((j + i) * 8)] = i;
-		s->cost_arr[SSIZE + ((j + i) * 8)] = s->size_b;
-		s->cost_arr[T + ((j + i) * 8)] = get_target_value(s->stack_a, s->size_a, s->stack_b[j]);
-		s->cost_arr[T_IDX + ((j + i) * 8)] = get_target_idx(s->stack_a, s->size_a, s->stack_b[j]);
-		s->cost_arr[DSIZE + ((j + i) * 8)] = s->size_a;
-		s->cost_arr[COST + ((j + i) * 8)] = 0;
-		j++;
-	}
-	display_cost(s);
+	return (lst);
 }
 
+t_list	**get_cost_list_b(t_ps *s, t_list **lst)
+{
+	int		i;
+	t_cost	*cost;
+	t_list	*node;
 
-//revoir target pour max value
+	i = 0;
+	while (i < s->size_b)
+	{
+		cost = malloc(sizeof(t_cost));
+		if (!cost)
+			return (NULL);
+		cost->stack_value = STACK_B;
+		cost->value = s->stack_b[i];
+		cost->value_idx = i;
+		cost->target_idx = get_target_idx(s->stack_a, s->size_a, s->stack_b[i]);
+		cost->target = s->stack_b[cost->target_idx];
+		cost->cost = cost_calc(i, s->size_b, cost->target_idx, s->size_a);
+		node = ft_lstnew(cost);
+		ft_lstadd_back(lst, node);
+		i++;
+	}
+	return (lst);
+}
+
+t_cost	*lowest_cost(t_list **lst)
+{
+	t_list	*root;
+	t_cost	*cost;
+
+	cost = malloc(sizeof(t_cost));
+	if (!cost)
+		return (NULL);
+	cost->cost = INT_MAX;
+	root = *lst;
+	while (root->next)
+	{
+		if (((t_cost *)root->content)->cost < cost->cost)
+			ft_memcpy(cost, ((t_cost *)root->content), sizeof(t_cost));
+		root = root->next;
+	}
+	return (cost);
+}
+
+t_cost	*get_best_cost(t_ps *s)
+{
+	t_list	**lst;
+	t_cost	*best_cost;
+
+	lst = malloc(sizeof(*lst));
+	if (!lst)
+		return (NULL);
+	*lst = NULL;
+	if (!get_cost_list_a(s, lst) || !get_cost_list_b(s, lst))
+	{
+		printf("error\n");
+		ft_lstclear(lst, free);
+		free(lst);
+		return (NULL);
+	}
+	best_cost = lowest_cost(lst);
+	ft_lstclear(lst, free);
+	free(lst);
+	return (best_cost);
+}

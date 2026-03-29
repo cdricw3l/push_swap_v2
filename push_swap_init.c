@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 11:57:20 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/25 08:20:32 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/26 18:35:06 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	check_duplicate(char *argv[])
 {
 	int	i;
 	int	j;
+	int	len;
 
 	i = 0;
 	while (argv[i])
@@ -23,7 +24,11 @@ int	check_duplicate(char *argv[])
 		j = i + 1;
 		while (argv[j])
 		{
-			if (!ft_strcmp(argv[i], argv[j]))
+			if (ft_strlen(argv[i]) > ft_strlen(argv[i]))
+				len = ft_strlen(argv[i]);
+			else
+				len = ft_strlen(argv[j]);
+			if (!ft_strncmp(argv[i], argv[j], len))
 				return (ERROR);
 			j++;
 		}
@@ -57,8 +62,7 @@ int	check_args(char *argv[])
 	return (i);
 }
 
-
-int stack_allocation(t_ps *ps, int size)
+int	stack_allocation(t_ps *ps, int size)
 {
 	ps->stack_a = malloc(sizeof(int) * size);
 	if (!ps->stack_a)
@@ -67,13 +71,6 @@ int stack_allocation(t_ps *ps, int size)
 	if (!ps->stack_b)
 	{
 		free(ps->stack_a);
-		return (ERROR);
-	}
-	ps->cost_arr = malloc(sizeof(int) * (size * 8));
-	if (!ps->cost_arr)
-	{
-		free(ps->stack_a);
-		free(ps->stack_b);
 		return (ERROR);
 	}
 	return (OK);

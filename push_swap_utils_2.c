@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 12:01:35 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/25 10:57:22 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/26 18:36:40 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,61 +39,15 @@ void	display_stack(t_ps *ps)
 	printf(" | b\n\n");
 }
 
-int index_of(int *arr, int len, int target)
+int	get_target_value(int *dest, int dest_size, int value)
 {
-	int i;
+	int	i;
+	int	target;
 
 	i = 0;
-	while (i < len)
-	{
-		if(arr[i] == target)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-int find_the_biggest_value(int *arr, int len)
-{
-	int i;
-	int biggest;
-
-	i = 0;
-	biggest = arr[0];
-	while (i < len)
-	{
-		if (arr[i] > biggest)
-			biggest = arr[i];
-		i++;
-	}
-	return (biggest);
-}
-
-int find_the_lowest_value(int *arr, int len)
-{
-	int i;
-	int lowest;
-
-	i = 0;
-	lowest = arr[0];
-	while (i < len)
-	{
-		if (arr[i] < lowest)
-			lowest = arr[i];
-		i++;
-	}
-	return (lowest);
-}
-
-int		get_target_value(int *dest, int dest_size, int value)
-{
-	int i;
-	int target;
-
-	i = 0;
-	target = find_the_biggest_value(dest, dest_size);
-	if(target < value)
-		return (find_the_lowest_value(dest, dest_size));
+	target = ft_biggest_int(dest, dest_size);
+	if (target < value)
+		return (ft_lowest_int(dest, dest_size));
 	while (i < dest_size)
 	{
 		if (dest[i] < target && dest[i] > value)
@@ -103,19 +57,20 @@ int		get_target_value(int *dest, int dest_size, int value)
 	return (target);
 }
 
-int		get_target_idx(int *dest, int dest_size, int value)
+int	get_target_idx(int *dest, int dest_size, int value)
 {
-	int i;
-	int target;
-	int target_idx;
+	int	i;
+	int	target;
+	int	target_idx;
 
 	i = 0;
-	target = find_the_biggest_value(dest, dest_size);
-	if(target < value)
-		return (index_of(dest,dest_size,find_the_lowest_value(dest, dest_size)));
+	target_idx = 0;
+	target = ft_biggest_int(dest, dest_size);
+	if (target < value)
+		return (ft_index_of(dest, dest_size, ft_lowest_int(dest, dest_size)));
 	while (i < dest_size)
 	{
-		if (dest[i] < target && dest[i] > value)
+		if (dest[i] <= target && dest[i] > value)
 		{
 			target = dest[i];
 			target_idx = i;
@@ -123,4 +78,21 @@ int		get_target_idx(int *dest, int dest_size, int value)
 		i++;
 	}
 	return (target_idx);
+}
+
+void	display_node_lst(void *ptr)
+{
+	t_cost	*node;
+
+	node = (t_cost *)ptr;
+	if (node->stack_value == 0)
+		printf("Stack: A\n");
+	else if (node->stack_value == 1)
+		printf("Stack: B\n");
+	printf("Value: %d\n", node->value);
+	printf("Value idx: %d\n", node->value_idx);
+	printf("target: %d\n", node->target);
+	printf("Target idx: %d\n", node->target_idx);
+	printf("Cost: %d\n", node->cost);
+	NL ;
 }
