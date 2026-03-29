@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:41:07 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/26 18:24:19 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/29 18:29:16 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 # include "libft_v2/libft.h"
 
 # define OK      1
-# define ERROR   -1
+# define ERROR_ARG   -1
+# define ERROR_ALLOC -2
 
 # define STACK_A	0
 # define STACK_B	1
@@ -102,4 +103,11 @@ void	display_node_lst(void *ptr);
 
 t_cost	*get_best_cost(t_ps *s);
 int 	index_of(int *arr, int len, int target);
+
+//algo
+
+void	push_swap(t_ps *s);
+void	sort_tree(t_ps *s, int stack);
+void	sort_four(t_ps *s);
+
 #endif

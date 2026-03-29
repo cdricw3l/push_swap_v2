@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 12:01:35 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/26 18:36:40 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/29 15:32:59 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	get_target_value(int *dest, int dest_size, int value)
 	i = 0;
 	target = ft_biggest_int(dest, dest_size);
 	if (target < value)
-		return (ft_lowest_int(dest, dest_size));
+		return (ft_lowest_int(dest, dest_size, VALUE));
 	while (i < dest_size)
 	{
 		if (dest[i] < target && dest[i] > value)
@@ -67,7 +67,7 @@ int	get_target_idx(int *dest, int dest_size, int value)
 	target_idx = 0;
 	target = ft_biggest_int(dest, dest_size);
 	if (target < value)
-		return (ft_index_of(dest, dest_size, ft_lowest_int(dest, dest_size)));
+		return (ft_lowest_int(dest, dest_size, INDEX));
 	while (i < dest_size)
 	{
 		if (dest[i] <= target && dest[i] > value)

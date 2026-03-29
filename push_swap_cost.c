@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 08:14:22 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/26 18:16:15 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/29 18:45:13 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_list	**get_cost_list_b(t_ps *s, t_list **lst)
 		cost->value = s->stack_b[i];
 		cost->value_idx = i;
 		cost->target_idx = get_target_idx(s->stack_a, s->size_a, s->stack_b[i]);
-		cost->target = s->stack_b[cost->target_idx];
+		cost->target = s->stack_a[cost->target_idx];
 		cost->cost = cost_calc(i, s->size_b, cost->target_idx, s->size_a);
 		node = ft_lstnew(cost);
 		ft_lstadd_back(lst, node);
@@ -90,7 +90,7 @@ t_cost	*lowest_cost(t_list **lst)
 		return (NULL);
 	cost->cost = INT_MAX;
 	root = *lst;
-	while (root->next)
+	while (root)
 	{
 		if (((t_cost *)root->content)->cost < cost->cost)
 			ft_memcpy(cost, ((t_cost *)root->content), sizeof(t_cost));
@@ -108,7 +108,7 @@ t_cost	*get_best_cost(t_ps *s)
 	if (!lst)
 		return (NULL);
 	*lst = NULL;
-	if (!get_cost_list_a(s, lst) || !get_cost_list_b(s, lst))
+	if (!get_cost_list_b(s, lst))
 	{
 		printf("error\n");
 		ft_lstclear(lst, free);
