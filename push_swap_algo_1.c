@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 18:50:36 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/29 18:32:21 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/29 19:09:16 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,40 @@ void	back_to_zero(t_ps *s)
 	}
 }
 
+void adjust_stack(t_ps *s, t_cost *cost)
+{
+	int lowest;
+
+	if(cost->target_idx <= s->size_a / 2  && cost->value_idx <= s->size_b / 2)
+	{
+		if(cost->target_idx < cost->value_idx)
+			lowest = cost->target_idx;
+		else
+			lowest = cost->value_idx;
+		while (lowest > 0)
+		{
+			multi_move(s, RR);
+			lowest--;
+			cost->target_idx--;
+			cost->value_idx--;
+		}
+	}
+	// else if (cost->target_idx > s->size_a / 2  && cost->value_idx > s->size_b / 2)
+	// {
+	// 	if(cost->target_idx > cost->value_idx)
+	// 		lowest = cost->target_idx;
+	// 	else
+	// 		lowest = cost->value_idx;
+	// 	while (lowest > 0)
+	// 	{
+	// 		multi_move(s, RR);
+	// 		lowest--;
+	// 		cost->target_idx--;
+	// 		cost->value_idx--;
+	// 	}
+	// }
+}
+
 void	push_swap(t_ps *s)
 {
 	t_cost	*best;
@@ -112,6 +146,7 @@ void	push_swap(t_ps *s)
 			double_move(s, best);
 		else
 		{
+			adjust_stack(s, best);
 			move_a(s, best);
 			move_b(s, best);
 		}
