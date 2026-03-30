@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:41:07 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/30 04:59:34 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/30 05:19:47 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,6 @@
 #define NL printf("\n")
 #define NB(n) printf("%d ",n)
 #define	DEBBUG printf(CRED"debug\n"CRESET)
-
-enum field
-{
-	STACK,
-	V,
-	V_IDX,
-	SSIZE,
-	T,
-	T_IDX,
-	DSIZE,
-	COST
-};
-
 
 typedef struct s_ps
 {
