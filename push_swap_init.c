@@ -6,42 +6,13 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 11:57:20 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/29 18:44:55 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/30 05:06:43 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	check_duplicate(char *argv[])
-{
-	int	i;
-	int	j;
-	int	len;
-
-	i = 0;
-	while (argv[i])
-	{
-		j = i + 1;
-		while (argv[j])
-		{
-			if (ft_strlen(argv[i]) > ft_strlen(argv[j]))
-				len = ft_strlen(argv[i]);
-			else
-				len = ft_strlen(argv[j]);
-			if (!ft_strncmp(argv[i], argv[j], len))
-			{
-				printf("duplicate value: %s et %s index: %d et %d\n",
-					argv[i], argv[j], i, j);
-				return (ERROR_ARG);
-			}
-			j++;
-		}
-		i++;
-	}
-	return (OK);
-}
-
-int	check_args(char *argv[])
+int	check_args(char **argv, int *size)
 {
 	int	i;
 	int	j;
@@ -60,10 +31,9 @@ int	check_args(char *argv[])
 			j++;
 		}
 		i++;
+		(*size)++;
 	}
-	if (i < 2 || check_duplicate(argv) == ERROR_ARG)
-		return (ERROR_ARG);
-	return (i);
+	return (OK);
 }
 
 int	stack_allocation(t_ps *ps, int size)
@@ -80,22 +50,66 @@ int	stack_allocation(t_ps *ps, int size)
 	return (OK);
 }
 
+int	check_args_validity(char **argv)
+{
+	int		r;
+	int		size;
+	char	**arg;
+	char	**split;
+
+	size = 0;
+	arg = argv;
+	while (*arg)
+	{
+		split = ft_split(*arg, 32);
+		if (!split)
+			return (ERROR_ALLOC);
+		r = check_args(split, &size);
+		clean_split(split);
+		if (r != OK)
+			return (ERROR_ARG);
+		arg++;
+	}
+	return (size);
+}
+
+int	process_arg(t_ps *s, char **argv)
+{
+	int		j;
+	int		i;
+	char	**arg;
+	char	**split;
+
+	i = 0;
+	arg = argv;
+	while (*arg)
+	{
+		split = ft_split(*arg, 32);
+		if (!split)
+			return (ERROR_ALLOC);
+		j = 0;
+		while (split[j])
+			s->stack_a[i++] = ft_atoi(split[j++]);
+		clean_split(split);
+		arg++;
+	}
+	return (OK);
+}
+
 int	init_stacks(t_ps *ps, char **argv)
 {
-	int	i;
+	int	size;
 
-	i = check_args(argv);
-	if (i == ERROR_ARG)
+	size = check_args_validity(argv);
+	if (size < 0)
 		return (ERROR_ARG);
-	ps->size_a = i;
-	if (stack_allocation(ps, i) == ERROR_ALLOC)
-		return (ERROR_ALLOC);
-	i = 0;
-	while (i < ps->size_a)
-	{
-		ps->stack_a[i] = ft_atoi(argv[i]);
-		i++;
-	}
+	ps->size_a = size;
 	ps->size_b = 0;
+	if (stack_allocation(ps, size) == ERROR_ALLOC)
+		return (ERROR_ALLOC);
+	if (process_arg(ps, argv) != OK)
+		return (clean_stack(ps, ERROR_ARG));
+	if (check_duplicate(ps->stack_a, ps->size_a) == ERROR_DUP)
+		return (clean_stack(ps, ERROR_DUP));
 	return (OK);
 }

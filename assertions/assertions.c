@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 11:52:56 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/23 02:44:49 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/30 02:35:20 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,20 +185,20 @@ int init_and_check_assertion(void)
 	clean_stack(&ps, 0);
 	char *args_2[] = {"1", "1", "1", "12", NULL};
 	r = init_stacks(&ps, args_2);
-	assert(r == ERROR);
+	assert(r != OK);
 	char *args_3[] = {"11", "2", "1", "1", NULL};
 	r = init_stacks(&ps, args_3);
-	assert(r == ERROR);
+	assert(r != OK);
 	char *args_4[] = {"1", "2", "11", "1", NULL};
 	r = init_stacks(&ps, args_4);
-	assert(r == ERROR);
+	assert(r != OK);
 	char *args_5[] = {"-1", "2", "+11", "1", NULL};
 	r = init_stacks(&ps, args_5);
 	assert(r == OK);
 	clean_stack(&ps, 0);
 	char *args_6[] = {"-", "2", "+", "1", NULL};
 	r = init_stacks(&ps, args_6);
-	assert(r == ERROR);
+	assert(r != OK);
 	
 	return (1);
 }

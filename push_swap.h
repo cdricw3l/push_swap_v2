@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:41:07 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/29 18:29:16 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/30 04:59:34 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 
 # define OK      1
 # define ERROR_ARG   -1
-# define ERROR_ALLOC -2
+# define ERROR_DUP   -2
+# define ERROR_ALLOC -3
 
 # define STACK_A	0
 # define STACK_B	1
@@ -71,17 +72,14 @@ typedef struct s_cost
 
 //INITIALISATION
 int		init_stacks(t_ps *ps, char **argv);
-int		check_args(char *argv[]);
 
 //UTILS
-int		ft_isdigit(int c);
-int		ft_atoi(const char *str);
 void	ft_swap(int *a, int *b);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 int		clean_stack(t_ps *ps, int err);
 void	display_stack(t_ps *ps);
 int		*get_stack(t_ps *ps, int stack, size_t *size);
-int     ft_strcmp(const char *s1, const char *s2);
+int		check_duplicate(int *stacks, int len);
 
 //COMMANDE
 

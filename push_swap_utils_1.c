@@ -6,7 +6,7 @@
 /*   By: cdric.b <cdric.b@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 12:01:35 by cdric.b           #+#    #+#             */
-/*   Updated: 2026/03/26 18:27:13 by cdric.b          ###   ########.fr       */
+/*   Updated: 2026/03/30 05:08:25 by cdric.b          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,24 @@ int	*get_stack(t_ps *ps, int stack, size_t *size)
 	else
 		return (NULL);
 	return (stk);
+}
+
+int	check_duplicate(int *stacks, int len)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < len)
+	{
+		j = i + 1;
+		while (j < len)
+		{
+			if (stacks[i] == stacks[j])
+				return (ERROR_DUP);
+			j++;
+		}
+		i++;
+	}
+	return (OK);
 }
